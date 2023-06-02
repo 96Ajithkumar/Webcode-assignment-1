@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brewery List</title> 
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    <style>
+         .full-body{
+    width: 100%;
+    height : 100%;
+    display: flex; 
+    flex-direction: column;
+    background-color: rgb(255 251 235); 
+    align-items: center;
+}  
+.header{ 
+    margin-top: 1rem;
+    display: flex;
+    flex-wrap: wrap; 
+    flex-direction: column;
+    width: 95%;
+    height: auto; 
+    align-items: center; 
+    justify-items: center; 
+    background-image: linear-gradient(to bottom right,  rgb(115, 243, 92),rgb(255 251 235)); 
+    box-shadow: 2px 2px rgb(128, 128, 128);
+} 
+.body-header{
+    display: flex;
+    flex-wrap: wrap; 
+    flex-direction: row;
+    width: 95%;
+    height: auto; 
+    justify-content: space-between;
+}
+.body{
+    margin-top: 1rem;
+    display: flex; 
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    width: 95%;
+    height: auto;
+    background-image: linear-gradient(to top,  rgb(254, 170, 139),rgb(255 251 235)); 
+    margin-bottom: 5rem;
+}
+.footer{
+    display: flex; 
+    position: fixed; 
+    flex-wrap: wrap;
+    justify-content: space-between;
+    bottom: 0;
+    width: 95%;
+    height: 5rem;
+    align-items: center; 
+    text-align: center; 
+    background-image: linear-gradient(to top,  rgb(193, 193, 193),rgb(255 251 235)); 
+    border: 1px solid gray; 
+    overflow: auto;
+}
+  #getList{ 
+    margin: 0.2rem 0.8rem 0.1rem 0rem; 
+    padding: 0.4rem;
+    border-radius: 5%;
+    background-color: rgb(255 251 235); 
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size:large;
+  } 
+  .card{
+    margin: 0.8rem; 
+    padding: 0.5rem; 
+    background-image: linear-gradient( rgb(247, 199, 183), rgb(255 251 235)); 
+    box-shadow: 2px 2px gray;
+  }
+  .form span{
+    margin-left: 2rem; 
+    font-weight: 600;
+    font-size: large;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    color: black;
+    background-color: rgb(255 251 235); 
+    padding: 1rem;
+  }  
+
+  @media screen and (max-width: 600px) { 
+    .form span{
+        margin-left: 0.5rem; 
+        font-weight: 300;
+        font-size: small;
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        color: black;
+        background-color: rgb(255 251 235); 
+        padding: 0.2rem;
+      }  
+    
+  } 
+  @media screen and (min-width: 601px) and (max-width: 840px) { 
+    .form span{
+        margin-left: 0.5rem; 
+        font-weight: 300;
+        font-size: medium;
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        color: black;
+        background-color: rgb(255 251 235); 
+        padding: 0.2rem;
+      }  
+    
+  }
+  .form{
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+  }
+  .form section{
+    display: inline;
+}
+.modal{
+    color: blue;
+    background-color: grey ;
+    border : '2px solid pink' ;
+   z-index: 2; 
+   opacity: 1.0;
+   position : 'fixed';
+   margin-top : '40px';
+    margin-right : '50%' ; 
+    display: none; 
+} 
+.result{
+    margin-top: 1rem;   
+} 
+#showing{ 
+    padding-left: 0.5rem;
+    font-weight: 600; 
+}
+.card-text{
+    word-wrap:normal; 
+    font-weight: 500; 
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-style: italic;
+} 
+.card a{
+    font-weight: 600; 
+} 
+.pagination-div a .page-link{
+    color:blue; 
+    background-color: lightcoral;
+} 
+.pagination button{
+    color: black;
+    background-color: transparent; 
+    cursor: pointer;  
+    border: 0.5px solid black;
+    border-radius: 15%;
+} 
+.pagination button:hover{
+    background-color: rgb(240, 171, 171);
+}
+.pagination button[class="active"]{
+    background-color: rgb(240, 171, 171);
+}
+#drop-type option{
+    background-color: rgb(246, 240, 240); 
+    border-radius: 7%;
+} 
+    </style>
+     
+</head>   
+<body> 
+    <div class="modal" tabindex="-1">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Error </h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <p id="modal-msg">Error </p>
+            </div>
+            <div class="modal-footer">
+              <button class = "modal-button" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <div class="full-body">   
+            <div class = "header">  
+            
+                <div id="heading">
+                    <h1>Brewery List</h1> 
+                    <button type="submit" id="getList" onclick="breweryAPI()" >Click to get all breweries !</button>
+                </div> 
+    
+                <div>
+                    <div class="form">
+                        <div class="form-group">
+                            <form action="" id="search-form"> 
+                                
+                                <span id="span-filter">
+                                    <label for="filter">   Find   </label>  
+                                    <span id="filter-select"> 
+                                        <select name="filter-value" id="filterby">
+                                            <option value="name" >Brewery Name</option>
+                                            <option value="type" >Brewery Type </option>
+                                            <option value="city">City</option>
+                                            <option value="state">State</option>
+                                        </select>
+                                        
+                                    </span>                               
+                                </span> 
+    
+                                <span id="span-search">
+                                    <label for="search">Search</label>
+                                    <input type="text" id="search-term" placeholder="find breweries " minlength="2" value="" required>  
+                                    <button type="submit">Find</button>
+                                </span>
+                                
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+            <div class = "body-header"> 
+                <div class="result-filter">
+                    <div class="form"> 
+                        <div class="form-gorup">
+                            <form action="" id="filter-form"> 
+                                <span id=""> 
+                                    <select name="" id="drop-type">
+                                        <option value="" selected><b>Available Types</b></option>
+                                        <option value="" disabled >micro </option>
+                                        <option value="" disabled="">nano</option>
+                                        <option value="" disabled="">regional</option> 
+                                        <option value="" disabled="">brewpub</option>
+                                        <option value="" disabled="">large</option>
+                                        <option value="" disabled="">planning</option>
+                                        <option value="" disabled="">bar</option>
+                                        <option value="" disabled="">contract</option>
+                                        <option value="" disabled="">proprietor</option>
+                                        <option value="" disabled="">closed</option>
+                                    </select> 
+                                </span>
+                            <span>
+                                <label for="filter">   Filter :  </label>  
+                                <span id="result-select"> 
+                                    <select name="filter-result" id="resultFilter">
+                                        <option value="name" >Brewery Name</option>
+                                        <option value="brewery_type" >Brewery Type </option>
+                                        <option value="city">City</option>
+                                        <option value="state">State</option> 
+                                    </select> 
+                                </span>  
+                                
+                            </span>
+                                <span id="span-result">
+                                    <label for="search">Search</label>
+                                    <input type="text" id="result-term" placeholder="Enter criteria" minlength="1" value="" required>  
+                                    <button type="submit">Filter result</button> 
+                                </span>
+                            </form> 
+                        
+                    </div>
+                </div>
+                <div class="result">
+                </div>
+            </div>
+            <div class = "body" id="card-parent">
+            </div>
+            <div class = "footer">    
+                <div>
+                    <p id="showing"></p>
+                </div>       
+                
+                <div class="button-hold">
+                    <nav aria-label="pagination-size" class = "pagination" id="page-btn"> 
+                    
+                    </nav>
+                </div>
+                
+                
+            </div> 
+</div>
+     
+    <script src="script.js"></script>
+</body>
+</html>
